@@ -1,5 +1,6 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
+String idCap1, idCap2, data1, data2, url;
  
 void setup() 
 {
@@ -22,12 +23,21 @@ void loop()
  if(WiFi.status()== WL_CONNECTED)
  {   
   
-   HTTPClient http;    
+   HTTPClient http;  
+   idCap1 ="E8CvTU8D2RVxAAMJQ5ek";
+   idCap2 = "NZqAZn6EXOlSxKSjaxzg";  
+   data1 = String(analogRead(0));
+   data2 = String(analogRead(1));
+   url = "http://bdd3583d.ngrok.io/post/?";
+   url+= "id1="+idCap1;
+   url+="&data1="+data1;
+   url+= "id2="+idCap2;
+   url+="&data2="+data2;
  
-   http.begin("http://bdd3583d.ngrok.io/post/?data1=400&data2=410");      
+   http.begin(url);      
    http.addHeader("Content-Type", "application/x-www-form-urlencoded"); 
   
-   int httpCode = http.POST("data1=400&data2=410");  
+   int httpCode = http.POST("data1&data2");  
                  
  
    Serial.println(httpCode);   
